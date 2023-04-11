@@ -1,0 +1,14 @@
+{
+  "ID": "582B10E1E9144702B5E18C3EDC3FF466",
+  "Disabled": false,
+  "ActionKeyword": "}",
+  "IsGlobal": false,
+  "Name": "GitKraken",
+  "Author": "davidegiacometti",
+  "Version": "1.0.0",
+  "Language": "csharp",
+  "Website": "https://aka.ms/powertoys",
+  "ExecuteFileName": "Community.PowerToys.Run.Plugin.GitKraken.dll",
+  "IcoPathDark": "Images\\GitKraken.dark.png",
+  "IcoPathLight": "Images\\GitKraken.light.png"
+}

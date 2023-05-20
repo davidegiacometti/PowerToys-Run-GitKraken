@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using Community.PowerToys.Run.Plugin.GitKraken.Helpers;
 using ManagedCommon;
 using Wox.Infrastructure;
@@ -11,7 +12,7 @@ using Wox.Plugin;
 
 namespace Community.PowerToys.Run.Plugin.GitKraken
 {
-    public class Main : IPlugin
+    public class Main : IPlugin, IContextMenu
     {
         private readonly RepositoryQuery _repositoryQuery;
         private PluginInitContext? _context;
@@ -37,21 +38,22 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
         {
             var results = new List<Result>();
 
-            foreach (var (name, path) in _repositoryQuery.GetAll())
+            foreach (var repository in _repositoryQuery.GetAll())
             {
-                var score = StringMatcher.FuzzySearch(query.Search, name);
+                var score = StringMatcher.FuzzySearch(query.Search, repository.Name);
                 if (string.IsNullOrWhiteSpace(query.Search) || score.Score > 0)
                 {
                     results.Add(new Result
                     {
-                        Title = name,
-                        SubTitle = path,
+                        Title = repository.Name,
+                        SubTitle = repository.Path,
                         Score = score.Score,
                         TitleHighlightData = score.MatchData,
                         IcoPath = _icoPath,
+                        ContextData = repository,
                         Action = _ =>
                         {
-                            Helper.OpenInShell("gitkraken", $"-p \"{path}\"", runWithHiddenWindow: true);
+                            Helper.OpenInShell("gitkraken", $"-p \"{repository.Path}\"", runWithHiddenWindow: true);
                             return true;
                         },
                     });
@@ -59,6 +61,31 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
             }
 
             return results.OrderBy(r => r.Title).ToList();
+        }
+
+        public List<ContextMenuResult> LoadContextMenus(Result selectedResult)
+        {
+            if (selectedResult.ContextData is not Repository repository)
+            {
+                return new List<ContextMenuResult>();
+            }
+
+            return new List<ContextMenuResult>
+            {
+                new ContextMenuResult
+                {
+                    Title = "Open containing folder (Ctrl+Shift+E)",
+                    Glyph = "\xE838",
+                    FontFamily = "Segoe MDL2 Assets",
+                    AcceleratorKey = Key.E,
+                    AcceleratorModifiers = ModifierKeys.Control | ModifierKeys.Shift,
+                    Action = _ =>
+                    {
+                        Helper.OpenInShell(repository.Path);
+                        return true;
+                    },
+                },
+            };
         }
 
         private void UpdateIconPath(Theme theme)

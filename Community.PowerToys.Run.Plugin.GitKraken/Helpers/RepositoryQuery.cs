@@ -13,7 +13,7 @@ namespace Community.PowerToys.Run.Plugin.GitKraken.Helpers
     {
         private readonly string _profilesPath = Environment.ExpandEnvironmentVariables(@"%APPDATA%\.gitkraken\profiles");
 
-        public IEnumerable<(string Name, string Path)> GetAll()
+        public IEnumerable<Repository> GetAll()
         {
             if (!Directory.Exists(_profilesPath))
             {

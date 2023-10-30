@@ -14,6 +14,8 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
 {
     public class Main : IPlugin, IContextMenu
     {
+        public static string PluginID => "582B10E1E9144702B5E18C3EDC3FF466";
+
         private readonly RepositoryQuery _repositoryQuery;
         private PluginInitContext? _context;
         private string? _icoPath;
@@ -76,7 +78,7 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
                 {
                     Title = "Open containing folder (Ctrl+Shift+E)",
                     Glyph = "\xE838",
-                    FontFamily = "Segoe MDL2 Assets",
+                    FontFamily = "Segoe Fluent Icons,Segoe MDL2 Assets",
                     AcceleratorKey = Key.E,
                     AcceleratorModifiers = ModifierKeys.Control | ModifierKeys.Shift,
                     Action = _ =>

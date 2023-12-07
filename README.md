@@ -5,7 +5,7 @@ Simple [PowerToys Run](https://learn.microsoft.com/windows/powertoys/run) experi
 ## Requirements
 
 - GitKraken 9.x
-- PowerToys minimum version 0.75.0
+- PowerToys minimum version 0.76.0
 
 ## Installation
 

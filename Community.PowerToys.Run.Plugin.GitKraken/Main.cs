@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Input;
 using Community.PowerToys.Run.Plugin.GitKraken.Helpers;
 using ManagedCommon;
@@ -14,6 +15,8 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
 {
     public class Main : IPlugin, IContextMenu
     {
+        private static readonly string _pluginName = Assembly.GetExecutingAssembly().GetName().Name ?? string.Empty;
+
         public static string PluginID => "582B10E1E9144702B5E18C3EDC3FF466";
 
         private readonly RepositoryQuery _repositoryQuery;
@@ -81,6 +84,7 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
                     FontFamily = "Segoe Fluent Icons,Segoe MDL2 Assets",
                     AcceleratorKey = Key.E,
                     AcceleratorModifiers = ModifierKeys.Control | ModifierKeys.Shift,
+                    PluginName = _pluginName,
                     Action = _ =>
                     {
                         Helper.OpenInShell(repository.Path);

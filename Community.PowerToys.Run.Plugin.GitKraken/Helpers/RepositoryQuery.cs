@@ -43,7 +43,8 @@ namespace Community.PowerToys.Run.Plugin.GitKraken.Helpers
                 yield break;
             }
 
-            foreach (var repo in localRepoCache.EnumerateArray())
+            using var repoEnumerator = localRepoCache.EnumerateArray();
+            foreach (var repo in repoEnumerator)
             {
                 if (repo.ValueKind != JsonValueKind.String)
                 {

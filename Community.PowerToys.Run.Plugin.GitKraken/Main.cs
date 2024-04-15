@@ -25,7 +25,7 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
 
         public string Name => "GitKraken";
 
-        public string Description => "Open GitKraken repositories.";
+        public string Description => "Opens GitKraken repositories";
 
         public Main()
         {

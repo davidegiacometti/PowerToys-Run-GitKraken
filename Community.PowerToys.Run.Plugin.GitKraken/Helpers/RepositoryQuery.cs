@@ -51,14 +51,19 @@ namespace Community.PowerToys.Run.Plugin.GitKraken.Helpers
                     continue;
                 }
 
-                var repoPath = repo.ToString().Replace("\\.git", string.Empty);
-                var directory = new DirectoryInfo(repoPath);
-                if (!directory.Exists)
+                var repoDirectory = new DirectoryInfo(repo.ToString());
+                if (!repoDirectory.Exists)
                 {
                     continue;
                 }
 
-                yield return new(directory.Name, directory.FullName.TrimEnd('\\'));
+                var parentDirectory = repoDirectory.Parent;
+                if (parentDirectory == null)
+                {
+                    continue;
+                }
+
+                yield return new(parentDirectory.Name, parentDirectory.FullName);
             }
         }
     }

@@ -7,13 +7,14 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 using Community.PowerToys.Run.Plugin.GitKraken.Helpers;
+using Community.PowerToys.Run.Plugin.GitKraken.Properties;
 using ManagedCommon;
 using Wox.Infrastructure;
 using Wox.Plugin;
 
 namespace Community.PowerToys.Run.Plugin.GitKraken
 {
-    public class Main : IPlugin, IContextMenu
+    public class Main : IPlugin, IPluginI18n, IContextMenu
     {
         private static readonly string _pluginName = Assembly.GetExecutingAssembly().GetName().Name ?? string.Empty;
 
@@ -23,9 +24,13 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
         private PluginInitContext? _context;
         private string? _icoPath;
 
-        public string Name => "GitKraken";
+        public string Name => Resources.PluginName;
 
-        public string Description => "Opens GitKraken repositories";
+        public string Description => Resources.PluginDescription;
+
+        public string GetTranslatedPluginTitle() => Resources.PluginName;
+
+        public string GetTranslatedPluginDescription() => Resources.PluginDescription;
 
         public Main()
         {
@@ -79,7 +84,7 @@ namespace Community.PowerToys.Run.Plugin.GitKraken
             {
                 new ContextMenuResult
                 {
-                    Title = "Open containing folder (Ctrl+Shift+E)",
+                    Title = Resources.Action_OpenContainingFolder,
                     Glyph = "\xE838",
                     FontFamily = "Segoe Fluent Icons,Segoe MDL2 Assets",
                     AcceleratorKey = Key.E,
